@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terravox — mundo de blocos infinito</title>
+<meta name="description" content="Terravox: jogo de blocos com mundo infinito, Nether, The End, sobrevivência e criativo. Feito em C++20 e Vulkan com a engine VAGE. Baixe grátis para Windows.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='5' fill='%235fae3c'/%3E%3Crect y='5' width='16' height='11' fill='%238a5a35'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<nav class="nav" aria-label="Principal">
+    <div class="wrap">
+        <a class="brand" href="index.html"><span class="brand-cube" aria-hidden="true"></span>TERRAVOX</a>
+        <div class="nav-links">
+            <a href="#recursos">Recursos</a>
+            <a href="#galeria">Galeria</a>
+            <a href="#download">Download</a>
+            <a href="#criadores">Criadores</a>
+            <a href="shaders.html">Gerador de Shaders</a>
+            <a href="resourcepacks.html">Gerador de Resource Packs</a>
+        </div>
+    </div>
+</nav>
+
+<header class="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="wrap">
+        <h1 class="logo">TERRAVOX</h1>
+        <div class="splash" id="splash">Feito com a VAGE!</div>
+        <p class="lead">Um mundo de blocos infinito para explorar, construir e sobreviver. Feito do zero em C++20 e Vulkan,
+            com a engine própria <strong>VAGE</strong> (Vexil Advanced Game Engine).</p>
+        <div class="hero-actions">
+            <a class="btn primary" href="downloads/Terravox.exe" download data-download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
+                Baixar para Windows
+            </a>
+            <a class="btn ghost" href="#criadores">Criar shaders e packs</a>
+        </div>
+        <div class="release-info" data-release-info>Versão 0.3 · Windows 10/11 (64 bits)</div>
+    </div>
+</header>
+
+<main>
+<section id="recursos">
+    <div class="wrap">
+        <div class="section-head">
+            <h2>O que tem no jogo</h2>
+            <p>Tudo o que você espera de um jogo de blocos: mundo gerado sem fim, três dimensões, mobs, sobrevivência e
+                criativo, num executável único de ~24 MB.</p>
+        </div>
+        <div class="grid cols-3">
+            <article class="card"><div class="icon" aria-hidden="true">🌍</div><h3>Mundo infinito</h3>
+                <p>20 biomas, cavernas, rios, minérios e 6 tipos de árvore. Tipos Padrão, Superplano, Biomas Grandes e Amplificado, com seed.</p></article>
+            <article class="card"><div class="icon" aria-hidden="true">🔥</div><h3>Nether e The End</h3>
+                <p>Acenda o portal de obsidiana, enfrente ghasts e blazes, encontre a fortaleza e derrote o Dragão do Ender.</p></article>
+            <article class="card"><div class="icon" aria-hidden="true">❤️</div><h3>Sobrevivência</h3>
+                <p>Vida, fome e saturação, afogamento, natação, dano de queda e lava, armaduras, camas, cultivo e fornalhas.</p></article>
+            <article class="card"><div class="icon" aria-hidden="true">🧱</div><h3>Criativo</h3>
+                <p>Voo e inventário com abas como no original: construção, coloridos, naturais, ferramentas, combate, comida e ovos geradores.</p></article>
+            <article class="card"><div class="icon" aria-hidden="true">🐺</div><h3>Mobs</h3>
+                <p>Porcos, vacas, ovelhas, galinhas, lobos domesticáveis, zumbis, esqueletos, creepers, endermen e mais, com procriação.</p></article>
+            <article class="card"><div class="icon" aria-hidden="true">🎨</div><h3>Feito para modificar</h3>
+                <p>Resource packs (texturas e sons) e shader packs em GLSL, compilados na hora. Use os geradores deste site para começar.</p></article>
+        </div>
+    </div>
+</section>
+
+<section id="galeria" class="alt">
+    <div class="wrap">
+        <div class="section-head">
+            <h2>Galeria</h2>
+            <p>Capturas tiradas do jogo, com as texturas padrão. Instale um resource pack para mudar o visual.</p>
+        </div>
+        <div class="gallery">
+            <figure><img src="img/titulo.jpg" alt="Menu principal com o panorama de um mundo girando ao fundo" loading="lazy"><figcaption>Menu principal com panorama</figcaption></figure>
+            <figure><img src="img/terceira-pessoa.jpg" alt="Jogador com armadura de diamante em terceira pessoa perto de um rio" loading="lazy"><figcaption>Terceira pessoa com armadura</figcaption></figure>
+            <figure><img src="img/mobs.jpg" alt="Lobo, galinha e outros mobs perto do jogador num campo" loading="lazy"><figcaption>Mobs e animais</figcaption></figure>
+            <figure><img src="img/blocos-3d.jpg" alt="Escadas, lajes e cercas em 3D na barra de itens" loading="lazy"><figcaption>Escadas, lajes e cercas em 3D</figcaption></figure>
+            <figure><img src="img/criativo.jpg" alt="Inventário do modo criativo numa floresta" loading="lazy"><figcaption>Inventário do criativo</figcaption></figure>
+            <figure><img src="img/mundos.jpg" alt="Tela de seleção de mundos com capas" loading="lazy"><figcaption>Seleção de mundos com capas</figcaption></figure>
+        </div>
+    </div>
+</section>
+
+<section id="download">
+    <div class="wrap">
+        <div class="download-box">
+            <div>
+                <h2>Baixe e jogue</h2>
+                <p class="muted">Um único arquivo: texturas, sons e shaders já vão dentro do <code>.exe</code>. Não precisa instalar.</p>
+                <ol class="steps">
+                    <li>Baixe o <code>Terravox.exe</code> e coloque numa pasta só dele (ex.: <code>Jogos\Terravox</code>).</li>
+                    <li>Dê dois cliques. Se o Windows mostrar “O Windows protegeu o computador”, clique em <em>Mais informações → Executar assim mesmo</em> (o executável não é assinado).</li>
+                    <li>Seus mundos, packs e configurações ficam na pasta <code>net\vexill\vage\terravox</code>, criada ao lado do executável.</li>
+                </ol>
+            </div>
+            <div>
+                <a class="btn primary" href="downloads/Terravox.exe" download data-download>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
+                    Baixar Terravox <span data-release-version>0.3</span>
+                </a>
+                <p class="note" data-release-detail>Windows 10/11, 64 bits</p>
+                <h3 style="margin-top:18px">Requisitos</h3>
+                <ul>
+                    <li>Windows 10 ou 11 (64 bits)</li>
+                    <li>Placa de vídeo com suporte a <strong>Vulkan</strong> (integradas AMD/Intel recentes servem)</li>
+                    <li>Driver de vídeo atualizado</li>
+                    <li>~4 GB de RAM e 100 MB livres</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="controles" class="alt">
+    <div class="wrap">
+        <div class="section-head"><h2>Controles</h2><p>Os mesmos do jogo original. Sensibilidade, inversão e entrada bruta do mouse ficam em <em>Opções → Controles</em>.</p></div>
+        <div class="grid cols-2">
+            <div class="table-wrap"><table>
+                <tr><th>Tecla</th><th>Ação</th></tr>
+                <tr><td><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> / mouse</td><td>Mover / olhar</td></tr>
+                <tr><td><kbd>Espaço</kbd></td><td>Pular, nadar (2× no criativo = voar)</td></tr>
+                <tr><td><kbd>Shift</kbd> / <kbd>Ctrl</kbd></td><td>Agachar / correr</td></tr>
+                <tr><td>Botão esquerdo</td><td>Quebrar / atacar</td></tr>
+                <tr><td>Botão direito</td><td>Usar, colocar blocos, comer</td></tr>
+                <tr><td>Botão do meio</td><td>Pegar bloco</td></tr>
+            </table></div>
+            <div class="table-wrap"><table>
+                <tr><th>Tecla</th><th>Ação</th></tr>
+                <tr><td><kbd>E</kbd></td><td>Inventário</td></tr>
+                <tr><td><kbd>1</kbd>–<kbd>9</kbd> / roda</td><td>Barra de itens</td></tr>
+                <tr><td><kbd>Q</kbd></td><td>Soltar item</td></tr>
+                <tr><td><kbd>T</kbd> ou <kbd>/</kbd></td><td>Chat e comandos</td></tr>
+                <tr><td><kbd>F1</kbd> <kbd>F2</kbd> <kbd>F3</kbd> <kbd>F5</kbd></td><td>Esconder HUD, captura, depuração, câmera</td></tr>
+                <tr><td><kbd>Esc</kbd></td><td>Pausa</td></tr>
+            </table></div>
+        </div>
+    </div>
+</section>
+
+<section id="criadores">
+    <div class="wrap">
+        <div class="section-head">
+            <h2>Para criadores</h2>
+            <p>O Terravox lê packs de pastas comuns, sem compilar nada. Os geradores abaixo montam um pack de exemplo
+                pronto para você baixar, instalar e continuar editando.</p>
+        </div>
+        <div class="grid cols-2">
+            <article class="card">
+                <div class="icon" aria-hidden="true">✨</div>
+                <h3>Gerador de shader pack</h3>
+                <p>Ajuste cor, contraste, saturação, temperatura, neblina e o vento nas folhas e na água, com prévia ao vivo.
+                    Baixe o código GLSL pronto e edite à vontade.</p>
+                <p style="margin-top:14px"><a class="btn gold small" href="shaders.html">Abrir gerador de shaders</a></p>
+            </article>
+            <article class="card">
+                <div class="icon" aria-hidden="true">🖌️</div>
+                <h3>Gerador de resource pack</h3>
+                <p>Navegue por todas as texturas do jogo, aplique filtros em lote, redesenhe no editor de pixels ou envie seus
+                    PNGs. O zip sai só com o que você mudou.</p>
+                <p style="margin-top:14px"><a class="btn gold small" href="resourcepacks.html">Abrir gerador de resource packs</a></p>
+            </article>
+        </div>
+
+        <div class="grid cols-2" style="margin-top:16px">
+            <div class="card">
+                <h3>Shader packs</h3>
+                <p>Pasta em <code>shaders/&lt;nome&gt;/</code> com qualquer um destes arquivos GLSL. O que faltar usa o shader do jogo. Se não compilar, o jogo volta para o padrão e mostra o erro no log.</p>
+                <pre class="tree" style="margin-top:12px">net/vexill/vage/terravox/shaders/
+└── MeuShader/
+    ├── pack.txt        descrição (1ª linha)
+    ├── block.frag      cor do terreno e das entidades
+    ├── terrain.vert    vértices (vento, ondas)
+    ├── entity.vert
+    ├── sky.vert / sky.frag
+    └── ui.vert / ui.frag</pre>
+                <p style="margin-top:10px">Ative em <em>Opções → Shaders</em>.</p>
+            </div>
+            <div class="card">
+                <h3>Resource packs</h3>
+                <p>Pasta em <code>resourcepacks/&lt;nome&gt;/</code> (ou com uma subpasta <code>assets/</code>) só com os arquivos que você quer trocar. Os caminhos são os do Minecraft, então texturas de lá funcionam direto.</p>
+                <pre class="tree" style="margin-top:12px">net/vexill/vage/terravox/resourcepacks/
+└── MeuPack/
+    ├── pack.txt                  descrição
+    ├── textures/block/stone.png  qualquer resolução
+    ├── textures/item/apple.png
+    ├── textures/entity/pig/pig.png
+    └── sounds/dig/stone1.ogg     .ogg ou .wav</pre>
+                <p style="margin-top:10px">Ative em <em>Opções → Pacotes de Recursos</em>. A ordem define a prioridade.</p>
+            </div>
+        </div>
+        <div class="card" style="margin-top:16px">
+            <h3>Dicas</h3>
+            <ul class="steps">
+                <li>Texturas em tira vertical (altura = N × largura) viram animação: água, lava, magma e portal.</li>
+                <li>Grama, folhas e água são texturas em tons de cinza tingidas pelo bioma, como no Minecraft. Desenhe essas em cinza.</li>
+                <li>Sons com variantes numeradas (<code>stone1.ogg</code>, <code>stone2.ogg</code>…) são sorteados a cada vez.</li>
+                <li>Shaders recebem tempo, posição da câmera, sol, neblina e dimensão no bloco <code>Global</code>. Veja os comentários em <code>terrain.vert</code>.</li>
+            </ul>
+        </div>
+    </div>
+</section>
+</main>
+
+<footer>
+    <div class="wrap">
+        <span>Terravox · feito com a VAGE (Vexil Advanced Game Engine)</span>
+        <span>Projeto de fã, sem ligação com a Mojang ou a Microsoft.</span>
+    </div>
+</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-label="Imagem ampliada"><img alt=""></div>
+
+<script src="data/release.js"></script>
+<script>
+"use strict";
+// Versao/tamanho do executavel (gerado por tools/build_web.py)
+const rel = window.TERRAVOX_RELEASE;
+if (rel) {
+    const size = rel.size ? (rel.size / 1048576).toFixed(1).replace(".", ",") + " MB" : "";
+    const parts = ["Versão " + rel.version, size, rel.date && "atualizado em " + rel.date, "Windows 10/11 (64 bits)"].filter(Boolean);
+    document.querySelectorAll("[data-release-info]").forEach((el) => (el.textContent = parts.join(" · ")));
+    document.querySelectorAll("[data-release-version]").forEach((el) => (el.textContent = rel.version));
+    document.querySelectorAll("[data-release-detail]").forEach((el) => (el.textContent = [size, "Terravox.exe", "Windows 10/11, 64 bits"].filter(Boolean).join(" · ")));
+    document.querySelectorAll("[data-download]").forEach((a) => (a.href = rel.file));
+}
+
+// Frase amarela que muda, como na tela de titulo
+const splashes = ["Feito com a VAGE!", "Agora com o Nether!", "Cuidado com o Dragão!", "100% Vulkan!", "Tem lobo domesticado!", "Superplano!", "Escadas em 3D!", "Panorama no menu!"];
+const splash = document.getElementById("splash");
+splash.textContent = splashes[Math.floor(Math.random() * splashes.length)];
+
+// Galeria ampliada
+const lb = document.getElementById("lightbox");
+document.querySelectorAll(".gallery img").forEach((img) =>
+    img.addEventListener("click", () => {
+        lb.querySelector("img").src = img.src;
+        lb.querySelector("img").alt = img.alt;
+        lb.classList.add("open");
+    }));
+lb.addEventListener("click", () => lb.classList.remove("open"));
+document.addEventListener("keydown", (e) => e.key === "Escape" && lb.classList.remove("open"));
+</script>
+</body>
+</html>

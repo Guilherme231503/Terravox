@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gerador de Resource Packs — Terravox</title>
+<meta name="description" content="Crie um resource pack para o Terravox: todas as texturas do jogo, filtros em lote, editor de pixels e exemplos prontos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='5' fill='%235fae3c'/%3E%3Crect y='5' width='16' height='11' fill='%238a5a35'/%3E%3C/svg%3E">
+</head>
+<body>
+<nav class="nav" aria-label="Principal">
+    <div class="wrap">
+        <a class="brand" href="index.html"><span class="brand-cube" aria-hidden="true"></span>TERRAVOX</a>
+        <div class="nav-links">
+            <a href="index.html">Início</a>
+            <a href="index.html#download">Download</a>
+            <a href="shaders.html">Gerador de Shaders</a>
+            <a href="resourcepacks.html" class="active" aria-current="page">Gerador de Resource Packs</a>
+        </div>
+    </div>
+</nav>
+
+<main class="wrap">
+    <div class="tool-head">
+        <h1>Gerador de Resource Packs</h1>
+        <p>Todas as texturas do jogo estão aqui. Clique numa para redesenhar no editor de pixels ou enviar seu PNG, use
+            os filtros para mudar várias de uma vez, ou comece por um exemplo pronto. O zip leva só as texturas que você mudou.</p>
+    </div>
+
+    <div class="tool">
+        <div class="side">
+            <div class="panel">
+                <h3>Pack</h3>
+                <div class="field"><label for="packName">Nome da pasta</label><input type="text" id="packName" value="Meu-Pack" maxlength="40"></div>
+                <div class="field"><label for="packDesc">Descrição</label><input type="text" id="packDesc" value="Meu primeiro resource pack do Terravox." maxlength="120"></div>
+                <button class="btn primary" id="download" type="button" style="width:100%" disabled>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
+                    Baixar resource pack (.zip)
+                </button>
+            </div>
+
+            <div class="panel">
+                <h3>Exemplos prontos</h3>
+                <p class="note" style="margin:0 0 10px">Substituem as mudanças atuais. Depois é só ajustar e baixar.</p>
+                <div class="grid" style="grid-template-columns:1fr 1fr;gap:6px">
+                    <button class="btn small ghost" type="button" data-example="madeira">Madeira escura</button>
+                    <button class="btn small ghost" type="button" data-example="pastel">Pastel</button>
+                    <button class="btn small ghost" type="button" data-example="noturno">Noite neon</button>
+                    <button class="btn small ghost" type="button" data-example="retro">Preto e branco</button>
+                </div>
+            </div>
+
+            <div class="panel" id="filters">
+                <h3>Filtros em lote</h3>
+                <div class="field"><label for="applyTarget">Aplicar em</label>
+                    <select id="applyTarget"><option value="selected">Selecionadas</option><option value="visible">Todas as mostradas</option></select></div>
+                <div class="field"><label for="fHue">Matiz <output id="oHue"></output></label><input type="range" id="fHue" min="-180" max="180" step="1"></div>
+                <div class="field"><label for="fSat">Saturação <output id="oSat"></output></label><input type="range" id="fSat" min="0" max="2" step="0.01"></div>
+                <div class="field"><label for="fBright">Brilho <output id="oBright"></output></label><input type="range" id="fBright" min="-60" max="60" step="1"></div>
+                <div class="field"><label for="fContrast">Contraste <output id="oContrast"></output></label><input type="range" id="fContrast" min="0.4" max="2" step="0.01"></div>
+                <div class="field"><label for="fNoise">Ruído <output id="oNoise"></output></label><input type="range" id="fNoise" min="0" max="40" step="1"></div>
+                <div class="field">
+                    <label for="fColorizeAmount">Colorir <output id="oColorize"></output></label>
+                    <div class="row"><input type="color" id="fColorize" value="#c08040" aria-label="Cor para colorir" style="flex:none"><input type="range" id="fColorizeAmount" min="0" max="1" step="0.01"></div>
+                </div>
+                <label class="check" style="margin-bottom:12px"><input type="checkbox" id="fInvert"> Inverter cores</label>
+                <div class="row">
+                    <button class="btn small gold" id="applyFilter" type="button">Aplicar</button>
+                    <button class="btn small ghost" id="resetFilter" type="button">Zerar</button>
+                </div>
+                <button class="btn small ghost" id="revert" type="button" style="width:100%;margin-top:8px">Voltar ao original</button>
+            </div>
+
+            <div class="panel">
+                <h3>Como instalar</h3>
+                <ol class="steps">
+                    <li>Extraia o zip em <code>net\vexill\vage\terravox\resourcepacks\</code>, ao lado do <code>Terravox.exe</code>.</li>
+                    <li>No jogo: <em>Opções → Pacotes de Recursos</em>, ative <strong id="installName">Meu-Pack</strong>.</li>
+                    <li>Grama, folhas, vitória-régia e água são tingidas pelo jogo: desenhe essas em tons de cinza.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div>
+            <div class="tex-toolbar">
+                <select id="category" aria-label="Categoria"></select>
+                <input type="search" id="search" placeholder="Buscar textura (ex.: diamond, oak, pig)" aria-label="Buscar textura">
+                <label class="check"><input type="checkbox" id="onlyModified"> Só modificadas</label>
+            </div>
+            <div class="row" style="margin-bottom:10px">
+                <p class="stats" id="stats" style="margin:0" aria-live="polite"></p>
+                <span style="flex:none;display:flex;gap:6px">
+                    <button class="btn small ghost" id="selectAll" type="button">Selecionar mostradas</button>
+                    <button class="btn small ghost" id="selectNone" type="button">Limpar seleção</button>
+                </span>
+            </div>
+            <p class="muted" id="loading" hidden>Carregando texturas…</p>
+            <div class="tex-grid" id="grid"></div>
+        </div>
+    </div>
+</main>
+
+<dialog id="editor" aria-labelledby="edTitle">
+    <div class="dlg-head">
+        <h3 id="edTitle"></h3>
+        <span class="muted" id="edSize" style="font-size:.85rem"></span>
+        <button class="btn small ghost" id="edCancel" type="button" aria-label="Fechar">✕</button>
+    </div>
+    <div class="dlg-body">
+        <div>
+            <div class="editor-stage"><canvas id="edCanvas"></canvas></div>
+            <p class="note" id="edTint" hidden>Esta textura é tingida pelo jogo (multiplicada por verde ou azul). Desenhe em tons de cinza.</p>
+            <p class="note" id="edAnim" hidden>Textura animada: cada quadrado de cima para baixo é um quadro da animação.</p>
+        </div>
+        <div class="side" style="align-content:start">
+            <div>
+                <div class="label" style="margin-bottom:6px">Ferramentas</div>
+                <div class="tools" id="edTools">
+                    <button type="button" data-tool="pencil" title="Lápis (B)" aria-label="Lápis">✏️</button>
+                    <button type="button" data-tool="eraser" title="Borracha (E)" aria-label="Borracha">🧽</button>
+                    <button type="button" data-tool="fill" title="Balde (G)" aria-label="Balde de tinta">🪣</button>
+                    <button type="button" data-tool="picker" title="Conta-gotas (I ou Alt+clique)" aria-label="Conta-gotas">💧</button>
+                    <button type="button" id="edUndo" title="Desfazer (Ctrl+Z)" aria-label="Desfazer">↶</button>
+                    <button type="button" id="edRedo" title="Refazer (Ctrl+Y)" aria-label="Refazer">↷</button>
+                    <button type="button" id="edFlip" title="Espelhar" aria-label="Espelhar na horizontal">⇋</button>
+                    <button type="button" id="edDouble" title="Dobrar resolução" aria-label="Dobrar resolução">2×</button>
+                </div>
+            </div>
+            <div>
+                <div class="row" style="margin-bottom:6px"><label class="label" for="edColor">Cor</label><input type="color" id="edColor" value="#ffffff" style="flex:none"></div>
+                <div class="palette" id="edPalette"></div>
+            </div>
+            <label class="btn small ghost" style="cursor:pointer">Enviar PNG…<input type="file" id="edUpload" accept="image/png,image/jpeg,image/gif,image/webp" hidden></label>
+            <button class="btn small ghost" id="edPng" type="button">Baixar só este PNG</button>
+            <button class="btn small ghost" id="edReset" type="button">Restaurar original</button>
+            <button class="btn small primary" id="edSave" type="button">Salvar no pack</button>
+        </div>
+    </div>
+</dialog>
+
+<footer>
+    <div class="wrap">
+        <span>Terravox · feito com a VAGE</span>
+        <span><a href="index.html">Voltar ao início</a></span>
+    </div>
+</footer>
+
+<script src="data/textures.js"></script>
+<script src="js/common.js"></script>
+<script src="js/resourcepacks.js"></script>
+</body>
+</html>

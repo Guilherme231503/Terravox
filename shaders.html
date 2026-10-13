@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gerador de Shaders — Terravox</title>
+<meta name="description" content="Crie um shader pack para o Terravox: cor, contraste, neblina, vento e ondas, com prévia ao vivo e código GLSL pronto.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='5' fill='%235fae3c'/%3E%3Crect y='5' width='16' height='11' fill='%238a5a35'/%3E%3C/svg%3E">
+</head>
+<body>
+<nav class="nav" aria-label="Principal">
+    <div class="wrap">
+        <a class="brand" href="index.html"><span class="brand-cube" aria-hidden="true"></span>TERRAVOX</a>
+        <div class="nav-links">
+            <a href="index.html">Início</a>
+            <a href="index.html#download">Download</a>
+            <a href="shaders.html" class="active" aria-current="page">Gerador de Shaders</a>
+            <a href="resourcepacks.html">Gerador de Resource Packs</a>
+        </div>
+    </div>
+</nav>
+
+<main class="wrap">
+    <div class="tool-head">
+        <h1>Gerador de Shaders</h1>
+        <p>Escolha um ponto de partida, ajuste os controles e baixe o shader pack. O código gerado roda o shader original
+            do jogo e aplica seus ajustes no fim, então dá para abrir os arquivos e continuar editando o GLSL.</p>
+    </div>
+
+    <div class="tool preview-first">
+        <form class="side" id="form" autocomplete="off" onsubmit="return false">
+            <div class="panel">
+                <h3>Pack</h3>
+                <div class="field"><label for="name">Nome da pasta</label><input type="text" id="name" maxlength="40"></div>
+                <div class="field"><label for="description">Descrição</label><input type="text" id="description" maxlength="120"></div>
+                <div class="field"><label for="preset">Ponto de partida</label><select id="preset"></select></div>
+            </div>
+
+            <div class="panel">
+                <h3>Cor</h3>
+                <div class="field"><label for="exposure">Exposição <output for="exposure"></output></label><input type="range" id="exposure" min="0.5" max="1.8" step="0.01"></div>
+                <div class="field"><label for="contrast">Contraste <output for="contrast"></output></label><input type="range" id="contrast" min="0.5" max="1.8" step="0.01"></div>
+                <div class="field"><label for="saturation">Saturação <output for="saturation"></output></label><input type="range" id="saturation" min="0" max="2" step="0.01"></div>
+                <div class="field"><label for="temperature">Temperatura (frio ↔ quente) <output for="temperature"></output></label><input type="range" id="temperature" min="-1" max="1" step="0.01"></div>
+                <div class="field"><label for="gamma">Gama <output for="gamma"></output></label><input type="range" id="gamma" min="0.6" max="1.6" step="0.01"></div>
+                <div class="field">
+                    <label for="tintStrength">Matiz <output for="tintStrength"></output></label>
+                    <div class="row"><input type="color" id="tint" aria-label="Cor do matiz" style="flex:none"><input type="range" id="tintStrength" min="0" max="1" step="0.01"></div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>Estilo</h3>
+                <div class="field"><label for="mode">Modo de cor</label>
+                    <select id="mode"><option value="0">Normal</option><option value="1">Preto e branco</option><option value="2">Sépia</option></select></div>
+                <div class="field"><label for="posterize">Posterização (níveis) <output for="posterize"></output></label><input type="range" id="posterize" min="0" max="16" step="1"></div>
+                <div class="field"><label for="fog">Distância da neblina <output for="fog"></output></label><input type="range" id="fog" min="0.3" max="1" step="0.01"></div>
+                <label class="check"><input type="checkbox" id="sky"> Aplicar a cor também no céu</label>
+            </div>
+
+            <div class="panel">
+                <h3>Movimento</h3>
+                <div class="field"><label for="leaves">Vento nas folhas <output for="leaves"></output></label><input type="range" id="leaves" min="0" max="3" step="0.05"></div>
+                <div class="field"><label for="plants">Vento na grama e flores <output for="plants"></output></label><input type="range" id="plants" min="0" max="3" step="0.05"></div>
+                <div class="field"><label for="water">Ondas na água <output for="water"></output></label><input type="range" id="water" min="0" max="3" step="0.05"></div>
+                <div class="field"><label for="speed">Velocidade <output for="speed"></output></label><input type="range" id="speed" min="0.2" max="3" step="0.05"></div>
+                <p class="note" style="margin:0">Neblina e movimento só aparecem dentro do jogo. A prévia mostra a cor.</p>
+            </div>
+        </form>
+
+        <div>
+            <div class="preview-wrap" id="compare">
+                <canvas id="preview" width="960" height="480" aria-label="Prévia do shader: original à esquerda, com o shader à direita"></canvas>
+                <span class="tag" style="left:10px">Original</span>
+                <span class="tag" style="right:10px">Com o shader</span>
+                <div class="compare-handle" id="handle" role="slider" tabindex="0" aria-label="Comparar antes e depois" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"></div>
+            </div>
+
+            <div class="row" style="margin-top:14px">
+                <button class="btn primary" id="download" type="button" style="flex:none">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
+                    Baixar shader pack (.zip)
+                </button>
+                <button class="btn ghost" id="reset" type="button" style="flex:none">Restaurar ponto de partida</button>
+            </div>
+            <p class="note" id="warn" hidden></p>
+
+            <div class="panel" style="margin-top:16px">
+                <h3>Como instalar</h3>
+                <ol class="steps">
+                    <li>Extraia o zip dentro de <code>net\vexill\vage\terravox\shaders\</code> (a pasta fica ao lado do <code>Terravox.exe</code>).</li>
+                    <li>No jogo: <em>Opções → Shaders</em>, escolha <strong id="installName">Meu Shader</strong> e clique em Concluído.</li>
+                    <li>Editou os arquivos? Volte em <em>Opções → Shaders</em> para recarregar. Erros de compilação aparecem na tela e no <code>latest.log</code>.</li>
+                </ol>
+            </div>
+
+            <div class="tabs" role="tablist" id="tabs"></div>
+            <pre class="tree code" id="code" tabindex="0"></pre>
+            <div class="row" style="margin-top:8px"><button class="btn small ghost" id="copy" type="button" style="flex:none">Copiar este arquivo</button></div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="wrap">
+        <span>Terravox · feito com a VAGE</span>
+        <span><a href="index.html">Voltar ao início</a></span>
+    </div>
+</footer>
+
+<script src="data/shaders.js"></script>
+<script src="data/preview.js"></script>
+<script src="js/common.js"></script>
+<script src="js/shaders.js"></script>
+<script>
+"use strict";
+(() => {
+    const $ = (id) => document.getElementById(id);
+    const sources = window.TERRAVOX_SHADERS;
+    const keys = ["name", "description", "exposure", "contrast", "saturation", "temperature", "gamma", "tint", "tintStrength",
+                  "mode", "posterize", "fog", "sky", "leaves", "plants", "water", "speed"];
+    const numeric = new Set(["exposure", "contrast", "saturation", "temperature", "gamma", "tintStrength", "mode", "posterize", "fog", "leaves", "plants", "water", "speed"]);
+    let state = { ...ShaderGen.DEFAULTS };
+    let activeFile = "block.frag";
+    let result = null;
+
+    // ---------- Presets
+    const presetSel = $("preset");
+    for (const name of Object.keys(ShaderGen.PRESETS)) presetSel.add(new Option(name, name));
+    function applyPreset(name, keepIdentity) {
+        const id = { name: state.name, description: state.description };
+        state = { ...ShaderGen.DEFAULTS, ...ShaderGen.PRESETS[name] };
+        if (keepIdentity) Object.assign(state, id);
+        else if (name !== "Padrão") {
+            state.name = name.normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/\s+/g, "-");
+            state.description = "Shader pack \"" + name + "\" feito no gerador do site do Terravox.";
+        }
+        fillForm();
+        update();
+    }
+
+    function fillForm() {
+        for (const k of keys) {
+            const el = $(k);
+            if (el.type === "checkbox") el.checked = !!state[k];
+            else el.value = state[k];
+        }
+        showOutputs();
+    }
+    function showOutputs() {
+        document.querySelectorAll("output").forEach((o) => {
+            const k = o.htmlFor.value;
+            const v = Number(state[k]);
+            o.textContent = k === "posterize" ? (v ? v : "desligado") : k === "fog" ? Math.round(v * 100) + "%" : v.toFixed(2);
+        });
+    }
+
+    $("form").addEventListener("input", (e) => {
+        const el = e.target;
+        if (!el.id || el.id === "preset") return;
+        state[el.id] = el.type === "checkbox" ? el.checked : numeric.has(el.id) ? Number(el.value) : el.value;
+        showOutputs();
+        update();
+    });
+    presetSel.addEventListener("change", () => applyPreset(presetSel.value, false));
+    $("reset").addEventListener("click", () => applyPreset(presetSel.value, true));
+
+    // ---------- Previa (antes/depois)
+    const canvas = $("preview"), ctx = canvas.getContext("2d", { willReadFrequently: true });
+    let original = null;
+    let split = 0.5;
+    const img = new Image();
+    img.onload = () => {
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        original = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        drawPreview();
+    };
+    img.src = window.TERRAVOX_PREVIEW;
+
+    let pending = 0;
+    function drawPreview() {
+        if (!original) return;
+        cancelAnimationFrame(pending);
+        pending = requestAnimationFrame(() => {
+            const grade = ShaderGen.makeGrader(state);
+            const out = ctx.createImageData(original.width, original.height);
+            const src = original.data, dst = out.data;
+            const cut = Math.round(split * original.width);
+            // cache por cor: capturas tem muitas cores repetidas
+            const cache = new Map();
+            for (let y = 0; y < original.height; y++) {
+                for (let x = 0; x < original.width; x++) {
+                    const i = (y * original.width + x) * 4;
+                    dst[i + 3] = 255;
+                    if (x < cut) {
+                        dst[i] = src[i]; dst[i + 1] = src[i + 1]; dst[i + 2] = src[i + 2];
+                        continue;
+                    }
+                    const key = (src[i] << 16) | (src[i + 1] << 8) | src[i + 2];
+                    let c = cache.get(key);
+                    if (c === undefined) {
+                        const g = grade(src[i], src[i + 1], src[i + 2]);
+                        c = (g[0] << 16) | (g[1] << 8) | g[2];
+                        cache.set(key, c);
+                    }
+                    dst[i] = c >> 16; dst[i + 1] = (c >> 8) & 255; dst[i + 2] = c & 255;
+                }
+            }
+            ctx.putImageData(out, 0, 0);
+            $("handle").style.left = `calc(${split * 100}% - 1px)`;
+            $("handle").setAttribute("aria-valuenow", Math.round(split * 100));
+        });
+    }
+
+    const compare = $("compare");
+    let dragging = false;
+    const setSplit = (clientX) => {
+        const r = compare.getBoundingClientRect();
+        split = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+        drawPreview();
+    };
+    compare.addEventListener("pointerdown", (e) => { dragging = true; compare.setPointerCapture(e.pointerId); setSplit(e.clientX); });
+    compare.addEventListener("pointermove", (e) => dragging && setSplit(e.clientX));
+    compare.addEventListener("pointerup", () => (dragging = false));
+    $("handle").addEventListener("keydown", (e) => {
+        if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+            split = Math.min(1, Math.max(0, split + (e.key === "ArrowLeft" ? -0.05 : 0.05)));
+            drawPreview();
+            e.preventDefault();
+        }
+    });
+
+    // ---------- Codigo gerado
+    function folder() { return Terravox.folderName(state.name, "Meu-Shader"); }
+
+    function update() {
+        result = ShaderGen.generate({ ...state, name: folder() }, sources);
+        $("installName").textContent = folder();
+        const tabs = $("tabs");
+        tabs.textContent = "";
+        const names = Object.keys(result.files);
+        if (!names.includes(activeFile)) activeFile = "block.frag";
+        for (const n of names) {
+            const b = document.createElement("button");
+            b.type = "button";
+            b.role = "tab";
+            b.textContent = n;
+            b.className = n === activeFile ? "active" : "";
+            b.setAttribute("aria-selected", n === activeFile);
+            b.onclick = () => { activeFile = n; update(); };
+            tabs.appendChild(b);
+        }
+        $("code").textContent = result.files[activeFile];
+        const warn = $("warn");
+        warn.hidden = !result.warn.length;
+        warn.textContent = result.warn.join(" ");
+        drawPreview();
+    }
+
+    $("copy").addEventListener("click", () => Terravox.copy(result.files[activeFile]));
+    $("download").addEventListener("click", () => {
+        const dir = folder();
+        const files = Object.entries(result.files).map(([n, t]) => ({ name: dir + "/" + n, data: t }));
+        Terravox.download(Terravox.makeZip(files), dir + ".zip");
+        Terravox.toast("Shader pack \"" + dir + "\" baixado!");
+    });
+
+    presetSel.value = "Vibrante";
+    applyPreset("Vibrante", false);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>404 — Bloco não encontrado · Terravox</title>
+<meta name="description" content="Página não encontrada no site do Terravox.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='5' fill='%235fae3c'/%3E%3Crect y='5' width='16' height='11' fill='%238a5a35'/%3E%3C/svg%3E">
+<style>
+/* Ajustes específicos da página 404, reaproveitando o style.css do site */
+.error-page {
+    min-height: calc(100vh - 64px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 0 64px;
+}
+
+.error-box {
+    max-width: 640px;
+    width: 100%;
+    background: rgba(20, 22, 18, 0.92);
+    border: 3px solid #4b5a3a;
+    box-shadow:
+        0 8px 0 #0e0f0c,
+        0 16px 32px rgba(0, 0, 0, 0.7),
+        inset 0 0 0 1px #6b7a5a;
+    padding: 40px 36px 36px;
+    text-align: center;
+    position: relative;
+}
+
+.error-box::before {
+    content: "";
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    height: 12px;
+    background: linear-gradient(180deg, #5fae3c 0%, #4a8a30 100%);
+    border: 3px solid #4b5a3a;
+    border-bottom: none;
+}
+
+.error-blocks {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 8px 0 20px;
+    font-size: 2.6rem;
+    line-height: 1;
+    filter: drop-shadow(0 4px 2px rgba(0, 0, 0, 0.5));
+}
+
+.error-blocks span {
+    display: inline-block;
+    animation: float 3s infinite ease-in-out;
+    text-shadow: 0 2px 0 #4a3a28, 0 4px 6px black;
+}
+
+.error-blocks span:nth-child(1) { color: #c9b382; }
+.error-blocks span:nth-child(2) { color: #8a5a35; animation-delay: 0.3s; }
+.error-blocks span:nth-child(3) { color: #5fae3c; animation-delay: 0.6s; }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.error-code {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 3.4rem;
+    color: #f5d742;
+    text-shadow:
+        3px 3px 0 #5f3e1e,
+        6px 6px 0 rgba(0, 0, 0, 0.6);
+    letter-spacing: 4px;
+    margin: 0 0 8px;
+    line-height: 1.1;
+}
+
+.error-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1.05rem;
+    color: #d4c9b0;
+    text-shadow: 2px 2px 0 #2a2a1e;
+    margin: 0 0 24px;
+    letter-spacing: 1px;
+    line-height: 1.5;
+}
+
+.error-log {
+    font-family: 'JetBrains Mono', monospace;
+    background: #10120e;
+    border: 2px solid #3d4d2e;
+    box-shadow: inset 0 0 8px #0a0b08;
+    color: #b8c7a8;
+    font-size: 0.85rem;
+    text-align: left;
+    padding: 14px 16px;
+    margin: 0 0 24px;
+    line-height: 1.7;
+    overflow-x: auto;
+}
+
+.error-log .prompt { color: #7e9f5e; font-weight: 600; }
+.error-log .path   { color: #f5d742; background: #242a1e; padding: 0 4px; }
+.error-log .err    { color: #d46a4a; font-weight: 600; }
+.error-log .arrow  { color: #7e9f5e; }
+
+.error-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 22px;
+}
+
+.error-note {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: #6a7a5a;
+    border-top: 1px dashed #3d4d2e;
+    padding-top: 16px;
+    letter-spacing: 0.4px;
+}
+
+.error-note a {
+    color: #8a9f7a;
+    text-decoration: none;
+    border-bottom: 1px dotted #6a7a5a;
+}
+
+.error-note a:hover {
+    color: #b8d4a0;
+    border-bottom-color: #b8d4a0;
+}
+
+@media (max-width: 600px) {
+    .error-box { padding: 30px 18px 24px; border-width: 2px; }
+    .error-box::before { height: 8px; border-width: 2px; }
+    .error-code { font-size: 2.4rem; letter-spacing: 2px; }
+    .error-title { font-size: 0.85rem; }
+    .error-blocks { font-size: 2rem; }
+    .error-log { font-size: 0.75rem; padding: 10px 12px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Principal">
+    <div class="wrap">
+        <a class="brand" href="index.html"><span class="brand-cube" aria-hidden="true"></span>TERRAVOX</a>
+        <div class="nav-links">
+            <a href="index.html#recursos">Recursos</a>
+            <a href="index.html#galeria">Galeria</a>
+            <a href="index.html#download">Download</a>
+            <a href="index.html#criadores">Criadores</a>
+            <a href="shaders.html">Gerador de Shaders</a>
+            <a href="resourcepacks.html">Gerador de Resource Packs</a>
+        </div>
+    </div>
+</nav>
+
+<main class="error-page">
+    <div class="wrap">
+        <div class="error-box">
+            <div class="error-blocks" aria-hidden="true">
+                <span>⬛</span>
+                <span>⬛</span>
+                <span>⬛</span>
+            </div>
+
+            <div class="error-code">404</div>
+            <div class="error-title">BLOCO NÃO ENCONTRADO</div>
+
+            <div class="error-log">
+                <span class="prompt">$</span> terravox --load <span class="path" id="err-path">/página-perdida</span><br>
+                <span class="err">ERRO:</span> Chunk inexistente ou removido do mundo.<br>
+                <span class="arrow">→</span> Verifique o endereço ou volte ao início.
+            </div>
+
+            <div class="error-actions">
+                <a class="btn primary" href="index.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
+                    Ir para o início
+                </a>
+                <a class="btn ghost" href="javascript:history.back()">Voltar</a>
+            </div>
+
+            <p class="error-note">
+                Terravox · feito com a VAGE &nbsp;|&nbsp;
+                <a href="index.html">índice</a> ·
+                <a href="index.html#download">download</a> ·
+                <a href="index.html#criadores">criadores</a>
+            </p>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="wrap">
+        <span>Terravox · feito com a VAGE (Vexil Advanced Game Engine)</span>
+        <span>Projeto de fã, sem ligação com a Mojang ou a Microsoft.</span>
+    </div>
+</footer>
+
+<script>
+"use strict";
+// Mostra o caminho real que o usuário tentou acessar (quando disponível)
+try {
+    const path = window.location.pathname;
+    if (path && path !== "/" && path !== "/404.html" && path !== "/index.html") {
+        document.getElementById("err-path").textContent = decodeURIComponent(path);
+    }
+} catch (e) { /* silencioso */ }
+</script>
+
+</body>
+</html>
